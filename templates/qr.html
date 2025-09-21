@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}QR Code Generator{% endblock %}
+{% block content %}
+<h2 class="text-center mb-4">QR Code Generator</h2>
+<div class="row justify-content-center">
+  <div class="col-lg-6">
+    <form method="POST" enctype="multipart/form-data" class="p-4 bg-white rounded shadow">
+      <div class="mb-3">
+        <label for="data" class="form-label">Text or URL</label>
+        <input type="text" name="data" id="data" class="form-control" placeholder="Enter text or link">
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Error Correction</label>
+          <select name="error_correction" class="form-select">
+            <option value="L">Low</option>
+            <option value="M" selected>Medium</option>
+            <option value="Q">Quartile</option>
+            <option value="H">High</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Pixel Size</label>
+          <input type="number" name="pixel_size" class="form-control" placeholder="Optional">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Box Size</label>
+          <input type="number" name="box_size" value="10" class="form-control">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Border</label>
+          <input type="number" name="border" value="4" class="form-control">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Fill Color</label>
+          <input type="color" name="fill_color" value="#000000" class="form-control form-control-color">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Background Color</label>
+          <input type="color" name="back_color" value="#ffffff" class="form-control form-control-color">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Format</label>
+        <select name="format" class="form-select">
+          <option value="PNG" selected>PNG</option>
+          <option value="JPEG">JPEG</option>
+          <option value="WEBP">WEBP</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 btn-lg">Generate QR</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

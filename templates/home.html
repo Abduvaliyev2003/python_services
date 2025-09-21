@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="text-center">
+  <h1 class="display-4 mb-4 fade-in">Welcome to QR App</h1>
+  <p class="lead">Generate QR codes, translate text, and manage files with ease.</p>
+  <a href="{{ url_for('services') }}" class="btn btn-primary btn-lg mt-3 shadow-lg">Explore Services</a>
+</div>
+{% endblock %}

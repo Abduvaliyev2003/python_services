@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}File Converter{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h1 class="text-center mb-4">File Converter</h1>
+  <p class="text-center text-muted mb-5">
+    Upload your file and choose the format you want to convert it to.
+  </p>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow p-4">
+        <form action="{{ url_for('converter') }}" method="post" enctype="multipart/form-data">
+          <!-- File upload -->
+          <div class="mb-4">
+            <label for="file" class="form-label fw-bold">Select File</label>
+            <input class="form-control" type="file" id="file" name="file" required>
+          </div>
+
+          <!-- Conversion type -->
+          <div class="mb-4">
+            <label for="format" class="form-label fw-bold">Convert To</label>
+            <select class="form-select" id="format" name="format" required>
+              <option value="" disabled selected>Choose a format</option>
+              <option value="pdf">PDF</option>
+              <option value="txt">Text (TXT)</option>
+              <option value="jpg">Image (JPG)</option>
+              <option value="png">Image (PNG)</option>
+            </select>
+          </div>
+
+          <!-- Submit -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="bi bi-arrow-repeat me-2"></i> Convert
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

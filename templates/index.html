@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>QR Code Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>✨ QR Code Generator</h1>
+  </header>
+
+  <main>
+    <section class="card">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <ul class="flash">
+            {% for cat, msg in messages %}
+              <li class="{{ cat }}">{{ msg }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+
+      <form method="post">
+        <label>Text or URL</label>
+        <input type="text" name="data" placeholder="https://example.com or any text" required>
+
+        <div class="row">
+          <div class="col">
+            <label>Error correction</label>
+            <select name="error_correction">
+              <option value="L">L - ~7%</option>
+              <option value="M" selected>M - ~15%</option>
+              <option value="Q">Q - ~25%</option>
+              <option value="H">H - ~30%</option>
+            </select>
+          </div>
+          <div class="col">
+            <label>Box size</label>
+            <input type="number" name="box_size" value="10" min="1" max="40">
+          </div>
+          <div class="col">
+            <label>Border</label>
+            <input type="number" name="border" value="4" min="0" max="20">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <label>Fill color</label>
+            <input type="text" name="fill_color" value="#000000">
+          </div>
+          <div class="col">
+            <label>Background</label>
+            <input type="text" name="back_color" value="#ffffff">
+          </div>
+          <div class="col">
+            <label>Format</label>
+            <select name="format">
+              <option>PNG</option>
+              <option>JPEG</option>
+              <option>WEBP</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="small">Optional: pixel size</label>
+        <input type="number" name="pixel_size" placeholder="e.g. 800">
+
+        <button class="btn" type="submit">Generate & Download</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>Made with ❤️ using Flask & QRCode</p>
+  </footer>
+</body>
+</html>
