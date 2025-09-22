@@ -3,14 +3,9 @@ import os
 from io import BytesIO
 from datetime import datetime
 
-from flask import (
-    Flask, render_template, request, redirect, url_for, flash,
-    send_file, abort
-)
+from flask import Flask, render_template, request, redirect, url_for, flash, send_file
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import (
-    LoginManager, login_user, login_required, logout_user, current_user, UserMixin
-)
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user, UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 
@@ -26,10 +21,9 @@ from reportlab.lib.pagesizes import A4
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "change_this_secret_for_prod")
 
-# 🔹 PostgreSQL connection string
-#    postgresql://<user>:<password>@<host>/<database>
-app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "postgresql://root:root@localhost/qrcode_db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get(
+    "DATABASE_URL",
+    "postgresql://qrcode_user:StrongPassword123@localhost/qrcode_db"
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB upload limit
@@ -48,10 +42,12 @@ ERROR_LEVELS = {
     "H": ERROR_CORRECT_H,
 }
 
+
 # ---------------------------
 # Models
 # ---------------------------
 class User(db.Model, UserMixin):
+    __tablename__ = "users"   # avoid reserved name "user"
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(220), unique=True, nullable=False)
@@ -151,10 +147,10 @@ def register():
         return redirect(url_for("home"))
 
     if request.method == "POST":
-        username = request.form.get("username", "").strip()
-        email = request.form.get("email", "").strip().lower()
-        password = request.form.get("password", "")
-        password2 = request.form.get("password2", "")
+        username = (request.form.get("username") or "").strip()
+        email = (request.form.get("email") or "").strip().lower()
+        password = request.form.get("password") or ""
+        password2 = request.form.get("password2") or ""
 
         if not (username and email and password):
             flash("Fill all fields.", "danger")
@@ -182,8 +178,8 @@ def login():
         return redirect(url_for("home"))
 
     if request.method == "POST":
-        username_or_email = request.form.get("username", "").strip()
-        password = request.form.get("password", "")
+        username_or_email = (request.form.get("username") or "").strip()
+        password = request.form.get("password") or ""
         user = User.query.filter(
             (User.username == username_or_email) | (User.email == username_or_email)
         ).first()
@@ -209,7 +205,7 @@ def logout():
 @app.route("/qr", methods=["GET", "POST"])
 def qr_page():
     if request.method == "POST":
-        data = request.form.get("data", "").strip()
+        data = (request.form.get("data") or "").strip()
         if not data:
             flash("Please enter text or URL.", "danger")
             return redirect(url_for("qr_page"))
@@ -256,7 +252,6 @@ def converter():
             return redirect(url_for("converter"))
 
         filename = secure_filename(f.filename)
-        ext = filename.rsplit(".", 1)[1].lower() if "." in filename else ""
         target_format = (request.form.get("target_format") or "").lower()
 
         if allowed_file(filename, ALLOWED_IMAGE_EXT):
