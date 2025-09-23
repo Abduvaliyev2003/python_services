@@ -1,24 +1,65 @@
 {% extends "base.html" %}
 {% block title %}Contact{% endblock %}
 {% block content %}
-<h2 class="text-center mb-4">Contact Us</h2>
-<div class="row justify-content-center">
-  <div class="col-md-8">
-    <form class="p-4 bg-white rounded shadow">
-      <div class="mb-3">
-        <label for="name" class="form-label">Your Name</label>
-        <input type="text" id="name" class="form-control" placeholder="John Doe">
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email Address</label>
-        <input type="email" id="email" class="form-control" placeholder="you@example.com">
-      </div>
-      <div class="mb-3">
-        <label for="message" class="form-label">Message</label>
-        <textarea id="message" rows="4" class="form-control" placeholder="Write your message..."></textarea>
-      </div>
-      <button class="btn btn-primary btn-lg w-100">Send Message</button>
-    </form>
+
+<!-- About Us Section -->
+<section class="mt-5">
+  <h2 class="text-center mb-4 fw-bold">About Us</h2>
+  <div class="row align-items-center">
+    <div class="col-md-6">
+      <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fabout-us-banner&psig=AOvVaw139WBKWUTeIEyViZqXVSUr&ust=1758735088657000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCPjrv_a0748DFQAAAAAdAAAAABAE"
+           class="img-fluid rounded shadow" alt="About Us">
+    </div>
+    <div class="col-md-6">
+      <h4 class="fw-semibold">Who We Are</h4>
+      <p class="text-muted">
+        QR App is a modern platform that provides easy-to-use tools such as
+        QR code generation, text translation, and file conversion.
+        Our mission is to make technology simple, accessible, and efficient
+        for everyone.
+      </p>
+      <h4 class="fw-semibold">Our Mission</h4>
+      <p class="text-muted">
+        We aim to deliver fast, secure, and user-friendly services that
+        help businesses and individuals improve productivity in daily tasks.
+      </p>
+      <ul class="list-unstyled">
+        <li>✅ Easy-to-use tools</li>
+        <li>✅ Secure and reliable</li>
+        <li>✅ Free and fast services</li>
+      </ul>
+    </div>
   </div>
-</div>
+</section>
+<!-- Contact Section -->
+<section class="mb-5">
+  <h2 class="text-center mb-4 fw-bold">Contact Us</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <form class="p-4 bg-white rounded shadow-lg">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="name" class="form-label fw-semibold">Your Name</label>
+            <input type="text" id="name" class="form-control" placeholder="John Doe">
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="email" class="form-label fw-semibold">Email Address</label>
+            <input type="email" id="email" class="form-control" placeholder="you@example.com">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="subject" class="form-label fw-semibold">Subject</label>
+          <input type="text" id="subject" class="form-control" placeholder="Subject of your message">
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label fw-semibold">Message</label>
+          <textarea id="message" rows="5" class="form-control" placeholder="Write your message..."></textarea>
+        </div>
+        <button class="btn btn-primary btn-lg w-100 shadow-sm">📩 Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+
 {% endblock %}

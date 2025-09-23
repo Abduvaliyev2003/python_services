@@ -2,10 +2,16 @@
 import os
 from io import BytesIO
 from datetime import datetime
-
-from flask import Flask, render_template, request, redirect, url_for, flash, send_file
+from googletrans import Translator
+from flask import (
+    Flask, render_template, request, redirect,
+    url_for, flash, send_file
+)
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, login_user, login_required, logout_user, current_user, UserMixin
+from flask_login import (
+    LoginManager, login_user, login_required,
+    logout_user, current_user, UserMixin
+)
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 
@@ -47,7 +53,7 @@ ERROR_LEVELS = {
 # Models
 # ---------------------------
 class User(db.Model, UserMixin):
-    __tablename__ = "users"   # avoid reserved name "user"
+    __tablename__ = "users"   # ✅ use plural table name
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(220), unique=True, nullable=False)
@@ -132,9 +138,6 @@ def services():
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
     if request.method == "POST":
-        name = request.form.get("name", "")
-        email = request.form.get("email", "")
-        message = request.form.get("message", "")
         flash("Thanks! Your message was received.", "success")
         return redirect(url_for("contact"))
     return render_template("contact.html", title="Contact")
@@ -186,7 +189,8 @@ def login():
         if user and user.check_password(password):
             login_user(user)
             flash("Logged in successfully.", "success")
-            return redirect(url_for("home"))
+            next_page = request.args.get("next")
+            return redirect(next_page or url_for("home"))
         flash("Invalid credentials.", "danger")
         return redirect(url_for("login"))
 
@@ -232,9 +236,21 @@ def qr_page():
 
 
 # --- Translator ---
-@app.route("/translator")
-def translator():
-    return render_template("translator.html", title="Translator")
+@app.route("/translator", methods=["GET", "POST"])
+def translate():
+    translated_text = ""
+    if request.method == "POST":
+        text = request.form.get("source_text")         # user input
+        source_lang = request.form.get("source_lang")  # from language
+        target_lang = request.form.get("target_lang")  # to language
+
+        if text and target_lang:
+            translator = Translator()
+            translated_text = translator.translate(
+                text, src=source_lang, dest=target_lang
+            ).text
+
+    return render_template("translator.html", translated_text=translated_text)
 
 
 # --- File converter ---

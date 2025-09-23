@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Translator{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-5">
+          <h2 class="text-center mb-4 text-primary fw-bold">
+            🌍 Text Translator
+          </h2>
+
+          <!-- Input form -->
+          <form method="POST" action="{{ url_for('translate') }}">
+            <div class="mb-4">
+              <label for="source_text" class="form-label fw-semibold">Enter your text</label>
+              <textarea id="source_text" name="source_text" class="form-control border-primary rounded-3 shadow-sm" rows="5" placeholder="Type or paste text here..."></textarea>
+            </div>
+
+            <div class="mb-4 row align-items-end">
+              <div class="col-md-5">
+                <label for="source_lang" class="form-label fw-semibold">From</label>
+                <select id="source_lang" name="source_lang" class="form-select shadow-sm border-primary rounded-3">
+                  <option value="auto">🌐 Detect Language</option>
+                  <option value="en">🇺🇸 English</option>
+                  <option value="uz">🇺🇿 Uzbek</option>
+                  <option value="ru">🇷🇺 Russian</option>
+                  <option value="ja">🇯🇵 Japanese</option>
+                  <option value="de">🇩🇪 German</option>
+                </select>
+              </div>
+
+              <div class="col-md-2 text-center">
+                <i class="bi bi-arrow-left-right fs-3 text-secondary"></i>
+              </div>
+
+              <div class="col-md-5">
+                <label for="target_lang" class="form-label fw-semibold">To</label>
+                <select id="target_lang" name="target_lang" class="form-select shadow-sm border-success rounded-3">
+                  <option value="uz">🇺🇿 Uzbek</option>
+                  <option value="en">🇺🇸 English</option>
+                  <option value="ru">🇷🇺 Russian</option>
+                  <option value="ja">🇯🇵 Japanese</option>
+                  <option value="de">🇩🇪 German</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success btn-lg shadow-sm">
+                🔄 Translate
+              </button>
+            </div>
+          </form>
+
+          <!-- Show result -->
+          {% if translated_text %}
+          <div class="mt-5">
+            <h5 class="text-success fw-bold">✨ Translation Result:</h5>
+            <div class="p-4 bg-light border rounded-4 shadow-sm fs-5">
+              {{ translated_text }}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

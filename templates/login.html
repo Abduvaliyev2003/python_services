@@ -1,24 +1,46 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
 {% block content %}
-<h2 class="text-center mb-4">Login</h2>
-<div class="row justify-content-center">
-  <div class="col-md-5">
-    <form class="p-4 bg-white rounded shadow">
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" id="email" class="form-control" placeholder="you@example.com">
+
+<div class="d-flex justify-content-center align-items-center flex-column">
+  <h2 class="text-center mb-4 fw-bold">🔑 Login to Your Account</h2>
+
+  <div class="col-md-5 col-lg-4">
+    <div class="card shadow-lg border-0 rounded-4">
+      <div class="card-body p-4">
+        <form method="POST" action="{{ url_for('login') }}">
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label fw-semibold">📧 Email</label>
+            <input type="email" id="email" name="email" class="form-control form-control-lg rounded-3" placeholder="you@example.com">
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label for="password" class="form-label fw-semibold">🔒 Password</label>
+            <input type="password" id="password" name="password" class="form-control form-control-lg rounded-3" placeholder="Enter password">
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn btn-primary w-100 btn-lg shadow-sm rounded-3">
+            🚀 Login
+          </button>
+        </form>
       </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" id="password" class="form-control" placeholder="Enter password">
-      </div>
-      <button class="btn btn-primary w-100 btn-lg">Login</button>
-      <p class="text-center mt-3">
+    </div>
+
+    <!-- Links -->
+    <div class="text-center mt-3">
+      <p class="text-muted mb-1">
         Don’t have an account?
-        <a href="{{ url_for('register') }}">Register</a>
+        <a href="{{ url_for('register') }}" class="fw-semibold text-decoration-none">Register</a>
       </p>
-    </form>
+      <p>
+        <a href="#" class="text-decoration-none text-primary fw-semibold">Forgot Password?</a>
+      </p>
+    </div>
   </div>
 </div>
+
 {% endblock %}

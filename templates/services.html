@@ -3,50 +3,79 @@
 
 {% block content %}
 <div class="container py-5">
-  <h1 class="text-center mb-5">Our Services</h1>
+  <h1 class="text-center fw-bold mb-5">🚀 Our Services</h1>
 
   <div class="row g-4 justify-content-center">
     <!-- QR Generator -->
-    <div class="col-md-4">
-      <div class="card shadow h-100 text-center p-4 service-card">
-        <div class="mb-3">
-          <i class="bi bi-qr-code" style="font-size:3rem; color:#0d6efd;"></i>
+    <div class="col-md-3">
+      <div class="card shadow h-100 text-center p-4 service-card border-0 rounded-4">
+        <div class="mb-3 rounded-circle p-4 mx-auto d-flex align-items-center justify-content-center"
+             style="width:80px; height:80px; background:linear-gradient(135deg,#0d6efd,#6ea8fe);">
+          <i class="bi bi-qr-code text-white" style="font-size:2rem;"></i>
         </div>
-        <h4 class="card-title">QR Code Generator</h4>
+        <h4 class="card-title mt-3">QR Code Generator</h4>
         <p class="card-text text-muted">
-          Create customized QR codes with different colors, sizes, and error levels.
+          Create customized QR codes with colors, sizes, and error levels.
         </p>
-        <a href="{{ url_for('qr_page') }}" class="btn btn-primary mt-3">Open</a>
+        <a href="{{ url_for('qr_page') }}" class="btn btn-primary w-100 mt-auto">Open</a>
       </div>
     </div>
 
     <!-- Google Translator -->
-    <div class="col-md-4">
-      <div class="card shadow h-100 text-center p-4 service-card">
-        <div class="mb-3">
-          <i class="bi bi-translate" style="font-size:3rem; color:#198754;"></i>
+    <div class="col-md-3">
+      <div class="card shadow h-100 text-center p-4 service-card border-0 rounded-4">
+        <div class="mb-3 rounded-circle p-4 mx-auto d-flex align-items-center justify-content-center"
+             style="width:80px; height:80px; background:linear-gradient(135deg,#198754,#20c997);">
+          <i class="bi bi-translate text-white" style="font-size:2rem;"></i>
         </div>
-        <h4 class="card-title">Google Translator</h4>
+        <h4 class="card-title mt-3">Google Translator</h4>
         <p class="card-text text-muted">
           Instantly translate text between multiple languages with one click.
         </p>
-        <a href="{{ url_for('translator') }}" class="btn btn-success mt-3">Try Now</a>
+        <a href="{{ url_for('translate') }}" class="btn btn-success w-100 mt-auto">Try Now</a>
       </div>
     </div>
 
     <!-- File Converter -->
-    <div class="col-md-4">
-      <div class="card shadow h-100 text-center p-4 service-card">
-        <div class="mb-3">
-          <i class="bi bi-file-earmark-arrow-down" style="font-size:3rem; color:#fd7e14;"></i>
+    <div class="col-md-3">
+      <div class="card shadow h-100 text-center p-4 service-card border-0 rounded-4">
+        <div class="mb-3 rounded-circle p-4 mx-auto d-flex align-items-center justify-content-center"
+             style="width:80px; height:80px; background:linear-gradient(135deg,#fd7e14,#ffc107);">
+          <i class="bi bi-file-earmark-arrow-down text-white" style="font-size:2rem;"></i>
         </div>
-        <h4 class="card-title">File Converter</h4>
+        <h4 class="card-title mt-3">File Converter</h4>
         <p class="card-text text-muted">
           Convert images or text files into different formats, including PDF.
         </p>
-        <a href="{{ url_for('converter') }}" class="btn btn-warning mt-3 text-white">Convert</a>
+        <a href="{{ url_for('converter') }}" class="btn btn-warning text-white w-100 mt-auto">Convert</a>
+      </div>
+    </div>
+
+    <!-- Text-to-Speech -->
+    <div class="col-md-3">
+      <div class="card shadow h-100 text-center p-4 service-card border-0 rounded-4">
+        <div class="mb-3 rounded-circle p-4 mx-auto d-flex align-items-center justify-content-center"
+             style="width:80px; height:80px; background:linear-gradient(135deg,#6f42c1,#d63384);">
+          <i class="bi bi-mic text-white" style="font-size:2rem;"></i>
+        </div>
+        <h4 class="card-title mt-3">Text-to-Speech</h4>
+        <p class="card-text text-muted">
+          Convert your written text into natural-sounding speech instantly.
+        </p>
+        <a href="{{ url_for('converter') }}" class="btn btn-dark w-100 mt-auto">Speak</a>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Extra CSS for hover animation -->
+<style>
+  .service-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+  }
+</style>
 {% endblock %}

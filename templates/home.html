@@ -1,9 +1,57 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
+
 {% block content %}
-<div class="text-center">
-  <h1 class="display-4 mb-4 fade-in">Welcome to QR App</h1>
-  <p class="lead">Generate QR codes, translate text, and manage files with ease.</p>
-  <a href="{{ url_for('services') }}" class="btn btn-primary btn-lg mt-3 shadow-lg">Explore Services</a>
-</div>
+<!-- Hero Section -->
+<section class="text-center py-5" style="background: linear-gradient(135deg, #0d6efd, #6ea8fe); color: white;">
+  <div class="container">
+    <h1 class="display-4 fw-bold mb-3 fade-in">🚀 Welcome to QR App</h1>
+    <p class="lead mb-4">Generate QR codes, translate text, and manage files with ease.</p>
+    <a href="{{ url_for('services') }}" class="btn btn-light btn-lg shadow-lg">Explore Services</a>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-5">✨ Why Choose Us?</h2>
+    <div class="row g-4">
+      <div class="col-md-4 text-center">
+        <i class="bi bi-qr-code" style="font-size:3rem; color:#0d6efd;"></i>
+        <h5 class="mt-3">Easy QR Codes</h5>
+        <p class="text-muted">Create beautiful QR codes with custom colors and error correction.</p>
+      </div>
+      <div class="col-md-4 text-center">
+        <i class="bi bi-translate" style="font-size:3rem; color:#198754;"></i>
+        <h5 class="mt-3">Instant Translation</h5>
+        <p class="text-muted">Translate text instantly into multiple languages.</p>
+      </div>
+      <div class="col-md-4 text-center">
+        <i class="bi bi-file-earmark-arrow-down" style="font-size:3rem; color:#fd7e14;"></i>
+        <h5 class="mt-3">File Conversion</h5>
+        <p class="text-muted">Convert files easily between formats like PDF, JPG, and more.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call-to-Action -->
+<section class="text-center py-5" style="background:#f8f9fa;">
+  <div class="container">
+    <h2 class="fw-bold mb-3">Ready to Get Started?</h2>
+    <p class="text-muted">Try our free tools today and make your tasks easier than ever.</p>
+    <a href="{{ url_for('services') }}" class="btn btn-primary btn-lg mt-2">Start Now</a>
+  </div>
+</section>
+
+<!-- Extra CSS Animations -->
+<style>
+  .fade-in {
+    animation: fadeIn 2s ease-in-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
 {% endblock %}
