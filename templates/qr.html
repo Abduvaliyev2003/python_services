@@ -4,24 +4,27 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-lg-7">
-      <div class="card shadow-lg border-0 rounded-4">
+      <div class="card shadow-lg border-0 rounded-4 animate__animated animate__fadeInUp">
         <div class="card-body p-5">
-          <h2 class="text-center mb-4 text-primary fw-bold">
+          <h2 class="text-center mb-4 text-primary fw-bold animate__animated animate__pulse animate__infinite">
             🔳 QR Code Generator
           </h2>
 
-          <form method="POST" enctype="multipart/form-data">
+          <form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+
             <!-- Input text/URL -->
             <div class="mb-4">
               <label for="data" class="form-label fw-semibold">Text or URL</label>
-              <input type="text" name="data" id="data" class="form-control border-primary rounded-3 shadow-sm" placeholder="Enter text or link" required>
+              <input type="text" name="data" id="data"
+                     class="form-control border-primary rounded-3 shadow-sm focus-effect"
+                     placeholder="Enter text or link" required>
             </div>
 
             <!-- Error correction + Pixel size -->
             <div class="row mb-4">
               <div class="col-md-6">
                 <label class="form-label fw-semibold">Error Correction</label>
-                <select name="error_correction" class="form-select shadow-sm border-primary rounded-3">
+                <select name="error_correction" class="form-select shadow-sm border-primary rounded-3 focus-effect">
                   <option value="L">Low</option>
                   <option value="M" selected>Medium</option>
                   <option value="Q">Quartile</option>
@@ -30,7 +33,9 @@
               </div>
               <div class="col-md-6">
                 <label class="form-label fw-semibold">Pixel Size</label>
-                <input type="number" name="pixel_size" class="form-control shadow-sm border-primary rounded-3" placeholder="Optional">
+                <input type="number" name="pixel_size"
+                       class="form-control shadow-sm border-primary rounded-3 focus-effect"
+                       placeholder="Optional">
               </div>
             </div>
 
@@ -38,11 +43,13 @@
             <div class="row mb-4">
               <div class="col-md-6">
                 <label class="form-label fw-semibold">Box Size</label>
-                <input type="number" name="box_size" value="10" class="form-control shadow-sm border-primary rounded-3">
+                <input type="number" name="box_size" value="10"
+                       class="form-control shadow-sm border-primary rounded-3 focus-effect">
               </div>
               <div class="col-md-6">
                 <label class="form-label fw-semibold">Border</label>
-                <input type="number" name="border" value="4" class="form-control shadow-sm border-primary rounded-3">
+                <input type="number" name="border" value="4"
+                       class="form-control shadow-sm border-primary rounded-3 focus-effect">
               </div>
             </div>
 
@@ -50,18 +57,20 @@
             <div class="row mb-4">
               <div class="col-md-6">
                 <label class="form-label fw-semibold">Fill Color</label>
-                <input type="color" name="fill_color" value="#000000" class="form-control form-control-color border-primary shadow-sm rounded-3">
+                <input type="color" name="fill_color" value="#000000"
+                       class="form-control form-control-color border-primary shadow-sm rounded-3">
               </div>
               <div class="col-md-6">
                 <label class="form-label fw-semibold">Background Color</label>
-                <input type="color" name="back_color" value="#ffffff" class="form-control form-control-color border-primary shadow-sm rounded-3">
+                <input type="color" name="back_color" value="#ffffff"
+                       class="form-control form-control-color border-primary shadow-sm rounded-3">
               </div>
             </div>
 
             <!-- Format -->
             <div class="mb-4">
               <label class="form-label fw-semibold">Format</label>
-              <select name="format" class="form-select shadow-sm border-primary rounded-3">
+              <select name="format" class="form-select shadow-sm border-primary rounded-3 focus-effect">
                 <option value="PNG" selected>PNG</option>
                 <option value="JPEG">JPEG</option>
                 <option value="WEBP">WEBP</option>
@@ -70,7 +79,7 @@
 
             <!-- Submit button -->
             <div class="d-grid">
-              <button type="submit" class="btn btn-success btn-lg shadow-sm">
+              <button type="submit" class="btn btn-success btn-lg shadow-sm hover-grow">
                 ⚡ Generate QR Code
               </button>
             </div>
@@ -81,4 +90,25 @@
     </div>
   </div>
 </div>
+
+<!-- Animate.css CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<style>
+  /* Input focus glow effect */
+  .focus-effect:focus {
+    border-color: #198754 !important;
+    box-shadow: 0 0 10px rgba(25, 135, 84, 0.5) !important;
+    transition: 0.3s ease-in-out;
+  }
+
+  /* Button hover scale */
+  .hover-grow {
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .hover-grow:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(25, 135, 84, 0.4);
+  }
+</style>
 {% endblock %}

@@ -3,31 +3,31 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="text-center py-5" style="background: linear-gradient(135deg, #0d6efd, #6ea8fe); color: white;">
+<section class="text-center py-5 hero-section">
   <div class="container">
     <h1 class="display-4 fw-bold mb-3 fade-in">🚀 Welcome to QR App</h1>
     <p class="lead mb-4">Generate QR codes, translate text, and manage files with ease.</p>
-    <a href="{{ url_for('services') }}" class="btn btn-light btn-lg shadow-lg">Explore Services</a>
+    <a href="{{ url_for('services') }}" class="btn btn-light btn-lg shadow-lg btn-animated">Explore Services</a>
   </div>
 </section>
 
 <!-- Features Section -->
 <section class="py-5">
   <div class="container">
-    <h2 class="text-center fw-bold mb-5">✨ Why Choose Us?</h2>
+    <h2 class="text-center fw-bold mb-5 fade-up">✨ Why Choose Us?</h2>
     <div class="row g-4">
-      <div class="col-md-4 text-center">
-        <i class="bi bi-qr-code" style="font-size:3rem; color:#0d6efd;"></i>
+      <div class="col-md-4 text-center fade-up">
+        <i class="bi bi-qr-code feature-icon"></i>
         <h5 class="mt-3">Easy QR Codes</h5>
         <p class="text-muted">Create beautiful QR codes with custom colors and error correction.</p>
       </div>
-      <div class="col-md-4 text-center">
-        <i class="bi bi-translate" style="font-size:3rem; color:#198754;"></i>
+      <div class="col-md-4 text-center fade-up">
+        <i class="bi bi-translate feature-icon text-success"></i>
         <h5 class="mt-3">Instant Translation</h5>
         <p class="text-muted">Translate text instantly into multiple languages.</p>
       </div>
-      <div class="col-md-4 text-center">
-        <i class="bi bi-file-earmark-arrow-down" style="font-size:3rem; color:#fd7e14;"></i>
+      <div class="col-md-4 text-center fade-up">
+        <i class="bi bi-file-earmark-arrow-down feature-icon text-warning"></i>
         <h5 class="mt-3">File Conversion</h5>
         <p class="text-muted">Convert files easily between formats like PDF, JPG, and more.</p>
       </div>
@@ -37,21 +37,85 @@
 
 <!-- Call-to-Action -->
 <section class="text-center py-5" style="background:#f8f9fa;">
-  <div class="container">
+  <div class="container fade-in">
     <h2 class="fw-bold mb-3">Ready to Get Started?</h2>
     <p class="text-muted">Try our free tools today and make your tasks easier than ever.</p>
-    <a href="{{ url_for('services') }}" class="btn btn-primary btn-lg mt-2">Start Now</a>
+    <a href="{{ url_for('services') }}" class="btn btn-primary btn-lg mt-2 btn-animated">Start Now</a>
   </div>
 </section>
 
-<!-- Extra CSS Animations -->
+<!-- Custom CSS Animations -->
 <style>
+  /* Hero Background */
+  .hero-section {
+    background: linear-gradient(135deg, #0d6efd, #6ea8fe);
+    color: white;
+    animation: fadeInHero 1.5s ease-in-out;
+  }
+  @keyframes fadeInHero {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Button Animation */
+  .btn-animated {
+    transition: all 0.3s ease-in-out;
+    border-radius: 30px;
+  }
+  .btn-animated:hover {
+    transform: translateY(-3px) scale(1.05);
+    background: linear-gradient(90deg, #4facfe, #00f2fe);
+    color: white;
+  }
+
+  /* Feature Icons */
+  .feature-icon {
+    font-size: 3rem;
+    color: #0d6efd;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  .feature-icon:hover {
+    transform: scale(1.2) rotate(5deg);
+    color: #6610f2;
+  }
+
+  /* Fade Animations */
   .fade-in {
-    animation: fadeIn 2s ease-in-out;
+    animation: fadeIn 1.2s ease-in-out;
   }
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
   }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1s ease forwards;
+  }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Trigger fade-up on scroll */
+  .fade-up {
+    animation-delay: 0.2s;
+  }
+  .fade-up:nth-child(2) { animation-delay: 0.4s; }
+  .fade-up:nth-child(3) { animation-delay: 0.6s; }
 </style>
+
+<!-- Scroll Animation Trigger -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const elements = document.querySelectorAll(".fade-up");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("animate");
+      });
+    }, { threshold: 0.2 });
+
+    elements.forEach(el => observer.observe(el));
+  });
+</script>
 {% endblock %}

@@ -1,8 +1,9 @@
-# app.py
+
 import os
 from io import BytesIO
 from datetime import datetime
 from googletrans import Translator
+from gtts import gTTS
 from flask import (
     Flask, render_template, request, redirect,
     url_for, flash, send_file
@@ -20,6 +21,7 @@ from qrcode.constants import ERROR_CORRECT_L, ERROR_CORRECT_M, ERROR_CORRECT_Q, 
 from PIL import Image
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
+
 
 # ---------------------------
 # Configuration
@@ -255,7 +257,6 @@ def translate():
 
 # --- File converter ---
 @app.route("/converter", methods=["GET", "POST"])
-@login_required
 def converter():
     if request.method == "POST":
         if "file" not in request.files:
@@ -297,7 +298,26 @@ def converter():
 
     return render_template("converter.html", title="File Converter")
 
+os.makedirs("static/tts", exist_ok=True)
 
+@app.route("/text-to-speech", methods=["GET", "POST"])
+def text_to_speech():
+    audio_file = None
+    if request.method == "POST":
+        text = request.form["text"]
+        lang = request.form["lang"]
+
+        # Generate unique filename
+        filename = f"{uuid.uuid4().hex}.mp3"
+        filepath = os.path.join("static/tts", filename)
+
+        # Generate speech
+        tts = gTTS(text=text, lang=lang)
+        tts.save(filepath)
+
+        audio_file = filename
+
+    return render_template("text_to_speech.html", audio_file=audio_file)
 # --- Error handlers ---
 @app.errorhandler(413)
 def too_large(e):

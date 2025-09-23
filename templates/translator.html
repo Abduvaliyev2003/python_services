@@ -4,9 +4,9 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-lg-8">
-      <div class="card shadow-lg border-0 rounded-4">
+      <div class="card shadow-lg border-0 rounded-4 animate__animated animate__fadeInUp">
         <div class="card-body p-5">
-          <h2 class="text-center mb-4 text-primary fw-bold">
+          <h2 class="text-center mb-4 text-primary fw-bold animate__animated animate__pulse animate__infinite">
             🌍 Text Translator
           </h2>
 
@@ -14,13 +14,16 @@
           <form method="POST" action="{{ url_for('translate') }}">
             <div class="mb-4">
               <label for="source_text" class="form-label fw-semibold">Enter your text</label>
-              <textarea id="source_text" name="source_text" class="form-control border-primary rounded-3 shadow-sm" rows="5" placeholder="Type or paste text here..."></textarea>
+              <textarea id="source_text" name="source_text"
+                        class="form-control border-primary rounded-3 shadow-sm focus-effect"
+                        rows="5" placeholder="Type or paste text here..."></textarea>
             </div>
 
             <div class="mb-4 row align-items-end">
-              <div class="col-md-5">
+              <div class="col-md-5 animate__animated animate__fadeInLeft">
                 <label for="source_lang" class="form-label fw-semibold">From</label>
-                <select id="source_lang" name="source_lang" class="form-select shadow-sm border-primary rounded-3">
+                <select id="source_lang" name="source_lang"
+                        class="form-select shadow-sm border-primary rounded-3 focus-effect">
                   <option value="auto">🌐 Detect Language</option>
                   <option value="en">🇺🇸 English</option>
                   <option value="uz">🇺🇿 Uzbek</option>
@@ -31,12 +34,13 @@
               </div>
 
               <div class="col-md-2 text-center">
-                <i class="bi bi-arrow-left-right fs-3 text-secondary"></i>
+                <i class="bi bi-arrow-left-right fs-3 text-secondary rotate-hover"></i>
               </div>
 
-              <div class="col-md-5">
+              <div class="col-md-5 animate__animated animate__fadeInRight">
                 <label for="target_lang" class="form-label fw-semibold">To</label>
-                <select id="target_lang" name="target_lang" class="form-select shadow-sm border-success rounded-3">
+                <select id="target_lang" name="target_lang"
+                        class="form-select shadow-sm border-success rounded-3 focus-effect">
                   <option value="uz">🇺🇿 Uzbek</option>
                   <option value="en">🇺🇸 English</option>
                   <option value="ru">🇷🇺 Russian</option>
@@ -47,7 +51,7 @@
             </div>
 
             <div class="d-grid">
-              <button type="submit" class="btn btn-success btn-lg shadow-sm">
+              <button type="submit" class="btn btn-success btn-lg shadow-sm hover-grow">
                 🔄 Translate
               </button>
             </div>
@@ -55,9 +59,9 @@
 
           <!-- Show result -->
           {% if translated_text %}
-          <div class="mt-5">
+          <div class="mt-5 animate__animated animate__fadeInUp">
             <h5 class="text-success fw-bold">✨ Translation Result:</h5>
-            <div class="p-4 bg-light border rounded-4 shadow-sm fs-5">
+            <div class="p-4 bg-light border rounded-4 shadow-sm fs-5 translate-result">
               {{ translated_text }}
             </div>
           </div>
@@ -67,4 +71,45 @@
     </div>
   </div>
 </div>
+
+<!-- Animate.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<style>
+  /* Focus glow */
+  .focus-effect:focus {
+    border-color: #198754 !important;
+    box-shadow: 0 0 10px rgba(25, 135, 84, 0.5) !important;
+    transition: 0.3s ease-in-out;
+  }
+
+  /* Hover grow button */
+  .hover-grow {
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .hover-grow:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(25, 135, 84, 0.4);
+  }
+
+  /* Icon rotation on hover */
+  .rotate-hover {
+    transition: transform 0.3s ease-in-out, color 0.3s;
+    cursor: pointer;
+  }
+  .rotate-hover:hover {
+    transform: rotate(180deg);
+    color: #198754;
+  }
+
+  /* Translation result fade effect */
+  .translate-result {
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
 {% endblock %}

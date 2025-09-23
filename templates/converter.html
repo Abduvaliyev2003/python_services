@@ -2,38 +2,46 @@
 {% block title %}File Converter{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-  <h1 class="text-center mb-4">File Converter</h1>
-  <p class="text-center text-muted mb-5">
-    Upload your file and choose the format you want to convert it to.
+<div class="container py-5 animate__animated animate__fadeIn">
+  <h1 class="text-center fw-bold mb-4 animate__animated animate__fadeInDown">📂 File Converter</h1>
+  <p class="text-center text-muted mb-5 animate__animated animate__fadeInUp">
+    Upload your file and convert it into the format you need — fast and easy.
   </p>
 
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <div class="card shadow p-4">
+      <div class="card shadow-lg border-0 rounded-4 p-4 animate__animated animate__zoomIn">
         <form action="{{ url_for('converter') }}" method="post" enctype="multipart/form-data">
+
           <!-- File upload -->
           <div class="mb-4">
-            <label for="file" class="form-label fw-bold">Select File</label>
-            <input class="form-control" type="file" id="file" name="file" required>
+            <label for="file" class="form-label fw-semibold">📁 Upload File</label>
+            <div class="upload-box border border-2 rounded-4 p-4 text-center bg-light" id="drop-area">
+              <i class="bi bi-cloud-arrow-up text-primary upload-icon"></i>
+              <p class="mt-2 mb-0 text-muted">Drag & drop your file here or click to browse</p>
+              <input class="form-control mt-3" type="file" id="file" name="file" required>
+            </div>
           </div>
 
           <!-- Conversion type -->
-          <div class="mb-4">
-            <label for="format" class="form-label fw-bold">Convert To</label>
-            <select class="form-select" id="format" name="format" required>
-              <option value="" disabled selected>Choose a format</option>
-              <option value="pdf">PDF</option>
-              <option value="txt">Text (TXT)</option>
-              <option value="jpg">Image (JPG)</option>
-              <option value="png">Image (PNG)</option>
-            </select>
+          <div class="mb-4 animate__animated animate__fadeInUp">
+            <label for="format" class="form-label fw-semibold">🔄 Convert To</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light"><i class="bi bi-file-earmark-diff"></i></span>
+              <select class="form-select" id="format" name="format" required>
+                <option value="" disabled selected>Choose a format</option>
+                <option value="pdf">📄 PDF</option>
+                <option value="txt">📝 Text (TXT)</option>
+                <option value="jpg">🖼️ Image (JPG)</option>
+                <option value="png">🖼️ Image (PNG)</option>
+              </select>
+            </div>
           </div>
 
           <!-- Submit -->
           <div class="text-center">
-            <button type="submit" class="btn btn-primary btn-lg">
-              <i class="bi bi-arrow-repeat me-2"></i> Convert
+            <button type="submit" class="btn btn-gradient btn-lg w-100 rounded-3 shadow-sm hover-grow">
+              <i class="bi bi-arrow-repeat me-2"></i> Convert File
             </button>
           </div>
         </form>
@@ -41,4 +49,78 @@
     </div>
   </div>
 </div>
+
+<!-- Animate.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<!-- Extra CSS -->
+<style>
+  /* Button hover grow */
+  .btn-gradient {
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    color: #fff;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn-gradient:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(13, 110, 253, 0.4);
+  }
+
+  /* Upload box */
+  .upload-box {
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s;
+    position: relative;
+  }
+  .upload-box:hover {
+    background: #f8f9fa;
+    border-color: #0d6efd;
+  }
+
+  /* Upload icon animation */
+  .upload-icon {
+    font-size: 3rem;
+    transition: transform 0.3s, color 0.3s;
+    display: inline-block;
+  }
+  .upload-box:hover .upload-icon {
+    transform: translateY(-5px) scale(1.1);
+    color: #6610f2;
+  }
+
+  /* Hover grow effect */
+  .hover-grow {
+    transition: all 0.3s ease-in-out;
+  }
+  .hover-grow:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Drag & Drop highlight */
+  #drop-area.dragover {
+    border-color: #198754;
+    background: #eafaf1;
+  }
+</style>
+
+<!-- JavaScript for drag & drop effect -->
+<script>
+  const dropArea = document.getElementById("drop-area");
+
+  dropArea.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropArea.classList.add("dragover");
+  });
+
+  dropArea.addEventListener("dragleave", () => {
+    dropArea.classList.remove("dragover");
+  });
+
+  dropArea.addEventListener("drop", (e) => {
+    e.preventDefault();
+    dropArea.classList.remove("dragover");
+    document.getElementById("file").files = e.dataTransfer.files;
+  });
+</script>
 {% endblock %}

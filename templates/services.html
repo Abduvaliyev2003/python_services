@@ -3,79 +3,136 @@
 
 {% block content %}
 <div class="container py-5">
-  <h1 class="text-center fw-bold mb-5">🚀 Our Services</h1>
+  <!-- Title -->
+  <h1 class="text-center fw-bold mb-5 section-title">🚀 Our Services</h1>
 
   <div class="row g-4 justify-content-center">
     <!-- QR Generator -->
     <div class="col-md-3">
       <div class="card shadow h-100 text-center p-4 service-card border-0 rounded-4">
-        <div class="mb-3 rounded-circle p-4 mx-auto d-flex align-items-center justify-content-center"
-             style="width:80px; height:80px; background:linear-gradient(135deg,#0d6efd,#6ea8fe);">
-          <i class="bi bi-qr-code text-white" style="font-size:2rem;"></i>
+        <div class="service-icon bg-primary-gradient">
+          <i class="bi bi-qr-code text-white"></i>
         </div>
         <h4 class="card-title mt-3">QR Code Generator</h4>
         <p class="card-text text-muted">
           Create customized QR codes with colors, sizes, and error levels.
         </p>
-        <a href="{{ url_for('qr_page') }}" class="btn btn-primary w-100 mt-auto">Open</a>
+        <a href="{{ url_for('qr_page') }}" class="btn btn-primary w-100 mt-auto btn-glow">Open</a>
       </div>
     </div>
 
     <!-- Google Translator -->
     <div class="col-md-3">
       <div class="card shadow h-100 text-center p-4 service-card border-0 rounded-4">
-        <div class="mb-3 rounded-circle p-4 mx-auto d-flex align-items-center justify-content-center"
-             style="width:80px; height:80px; background:linear-gradient(135deg,#198754,#20c997);">
-          <i class="bi bi-translate text-white" style="font-size:2rem;"></i>
+        <div class="service-icon bg-success-gradient">
+          <i class="bi bi-translate text-white"></i>
         </div>
         <h4 class="card-title mt-3">Google Translator</h4>
         <p class="card-text text-muted">
           Instantly translate text between multiple languages with one click.
         </p>
-        <a href="{{ url_for('translate') }}" class="btn btn-success w-100 mt-auto">Try Now</a>
+        <a href="{{ url_for('translate') }}" class="btn btn-success w-100 mt-auto btn-glow">Try Now</a>
       </div>
     </div>
 
     <!-- File Converter -->
     <div class="col-md-3">
       <div class="card shadow h-100 text-center p-4 service-card border-0 rounded-4">
-        <div class="mb-3 rounded-circle p-4 mx-auto d-flex align-items-center justify-content-center"
-             style="width:80px; height:80px; background:linear-gradient(135deg,#fd7e14,#ffc107);">
-          <i class="bi bi-file-earmark-arrow-down text-white" style="font-size:2rem;"></i>
+        <div class="service-icon bg-warning-gradient">
+          <i class="bi bi-file-earmark-arrow-down text-white"></i>
         </div>
         <h4 class="card-title mt-3">File Converter</h4>
         <p class="card-text text-muted">
           Convert images or text files into different formats, including PDF.
         </p>
-        <a href="{{ url_for('converter') }}" class="btn btn-warning text-white w-100 mt-auto">Convert</a>
+        <a href="{{ url_for('converter') }}" class="btn btn-warning text-white w-100 mt-auto btn-glow">Convert</a>
       </div>
     </div>
 
     <!-- Text-to-Speech -->
     <div class="col-md-3">
       <div class="card shadow h-100 text-center p-4 service-card border-0 rounded-4">
-        <div class="mb-3 rounded-circle p-4 mx-auto d-flex align-items-center justify-content-center"
-             style="width:80px; height:80px; background:linear-gradient(135deg,#6f42c1,#d63384);">
-          <i class="bi bi-mic text-white" style="font-size:2rem;"></i>
+        <div class="service-icon bg-purple-gradient">
+          <i class="bi bi-mic text-white"></i>
         </div>
         <h4 class="card-title mt-3">Text-to-Speech</h4>
         <p class="card-text text-muted">
           Convert your written text into natural-sounding speech instantly.
         </p>
-        <a href="{{ url_for('converter') }}" class="btn btn-dark w-100 mt-auto">Speak</a>
+        <a href="{{ url_for('text_to_speech') }}" class="btn btn-dark w-100 mt-auto btn-glow">Speak</a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Extra CSS for hover animation -->
+<!-- Extra CSS for effects -->
 <style>
+  /* Section Title underline */
+  .section-title {
+    position: relative;
+    display: inline-block;
+  }
+  .section-title::after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 60px;
+    margin: 10px auto 0;
+    background: linear-gradient(90deg, #0d6efd, #6ea8fe);
+    border-radius: 2px;
+    animation: underlineSlide 2s infinite alternate;
+  }
+  @keyframes underlineSlide {
+    from { width: 60px; }
+    to { width: 120px; }
+  }
+
+  /* Service card hover */
   .service-card {
-    transition: transform 0.3s, box-shadow 0.3s;
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
   }
   .service-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  }
+
+  /* Service Icon */
+  .service-icon {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    transition: transform 0.3s ease;
+  }
+  .service-card:hover .service-icon {
+    transform: rotate(10deg) scale(1.1);
+  }
+
+  /* Gradient backgrounds */
+  .bg-primary-gradient {
+    background: linear-gradient(135deg,#0d6efd,#6ea8fe);
+  }
+  .bg-success-gradient {
+    background: linear-gradient(135deg,#198754,#20c997);
+  }
+  .bg-warning-gradient {
+    background: linear-gradient(135deg,#fd7e14,#ffc107);
+  }
+  .bg-purple-gradient {
+    background: linear-gradient(135deg,#6f42c1,#d63384);
+  }
+
+  /* Button glow effect */
+  .btn-glow {
+    transition: all 0.3s ease-in-out;
+  }
+  .btn-glow:hover {
+    box-shadow: 0 0 15px rgba(0,0,0,0.3), 0 0 20px rgba(13,110,253,0.4);
+    transform: translateY(-3px);
   }
 </style>
 {% endblock %}

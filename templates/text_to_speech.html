@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block title %}Text to Speech{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <!-- Header -->
+  <div class="text-center mb-5">
+    <h1 class="fw-bold display-5 text-primary fade-in">🗣️ Text to Speech</h1>
+    <p class="text-muted lead">Convert your text into natural-sounding speech instantly</p>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <!-- Card -->
+      <div class="card shadow-lg border-0 rounded-4 p-4 hover-card glass-effect">
+        <form action="{{ url_for('text_to_speech') }}" method="post">
+          <!-- Text Input -->
+          <div class="mb-4">
+            <label for="text" class="form-label fw-bold">Enter Text</label>
+            <textarea id="text" name="text" class="form-control rounded-3 glowing-input" rows="5"
+              placeholder="✨ Type or paste your text here..." required></textarea>
+          </div>
+
+          <!-- Language -->
+          <div class="mb-4">
+            <label for="lang" class="form-label fw-bold">Choose Language</label>
+            <select class="form-select rounded-3 glowing-input" id="lang" name="lang" required>
+              <option value="en" selected>English</option>
+              <option value="uz">Uzbek</option>
+              <option value="ru">Russian</option>
+              <option value="fr">French</option>
+              <option value="de">German</option>
+            </select>
+          </div>
+
+          <!-- Submit -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-gradient btn-lg px-5 py-2 shadow-sm pulse">
+              <i class="bi bi-mic-fill me-2"></i> Generate Speech
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Audio Player -->
+      {% if audio_file %}
+      <div class="card shadow-lg border-0 rounded-4 p-4 mt-5 text-center fade-in wave-card">
+        <h5 class="fw-bold">🔊 Generated Speech</h5>
+        <audio controls class="w-100 mt-3 custom-audio">
+          <source src="{{ url_for('static', filename='tts/' + audio_file) }}" type="audio/mp3">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<!-- Custom Styles -->
+<style>
+  /* Gradient Button */
+  .btn-gradient {
+    background: linear-gradient(90deg, #4facfe, #00f2fe);
+    border: none;
+    color: white;
+    transition: 0.3s;
+    border-radius: 30px;
+  }
+  .btn-gradient:hover {
+    background: linear-gradient(90deg, #00f2fe, #4facfe);
+    transform: scale(1.05);
+    box-shadow: 0px 8px 20px rgba(0, 242, 254, 0.5);
+  }
+
+  /* Pulse Effect on Button */
+  .pulse {
+    animation: pulseEffect 2s infinite;
+  }
+  @keyframes pulseEffect {
+    0% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0.6); }
+    70% { box-shadow: 0 0 0 20px rgba(0, 242, 254, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 242, 254, 0); }
+  }
+
+  /* Card Hover */
+  .hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .hover-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Glassmorphism */
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+  }
+
+  /* Input Glow */
+  .glowing-input:focus {
+    border: 2px solid #4facfe;
+    box-shadow: 0px 0px 8px rgba(79, 172, 254, 0.6);
+    transition: all 0.3s ease-in-out;
+  }
+
+  /* Fade-in Animation */
+  .fade-in {
+    animation: fadeIn 1s ease-in-out;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Audio Player */
+  .custom-audio {
+    border-radius: 12px;
+    outline: none;
+  }
+
+  /* Wavy Effect on Audio Card */
+  .wave-card {
+    position: relative;
+    overflow: hidden;
+  }
+  .wave-card::after {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 200%;
+    height: 40px;
+    background: url('data:image/svg+xml;utf8,<svg width="100%" height="40px" xmlns="http://www.w3.org/2000/svg"><path fill="%2300f2fe" fill-opacity="0.2" d="M0,20 C150,40 350,0 500,20 L500,00 L0,0 Z"></path></svg>');
+    animation: waveMove 6s linear infinite;
+  }
+  @keyframes waveMove {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+</style>
+{% endblock %}
