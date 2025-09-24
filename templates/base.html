@@ -111,10 +111,11 @@
 
         <!-- Services Dropdown -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle {% if request.endpoint == 'services' %}active{% endif %}"
-             href="{{ url_for('services') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Services
-          </a>
+          <a class="nav-link dropdown-toggle" href="{{ url_for('services') }}" id="navbarDropdown" role="button"
+     data-bs-toggle="dropdown" aria-expanded="false">
+    Services
+  </a>
+
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{{ url_for('qr_page') }}">📌 QR Code Generator</a></li>
             <li><a class="dropdown-item" href="{{ url_for('text_to_speech') }}">🗣️ Text to Speech</a></li>
@@ -168,6 +169,12 @@
   // Fade-in effect for main content
   document.addEventListener("DOMContentLoaded", () => {
     document.querySelector("main").style.opacity = 0;
+      let dropdownLink = document.querySelector("#navbarDropdown");
+
+  // If clicked → go to Services page
+  dropdownLink.addEventListener("click", function(e) {
+    window.location.href = this.getAttribute("href");
+  });
     setTimeout(() => {
       document.querySelector("main").style.transition = "opacity 1s ease-in-out";
       document.querySelector("main").style.opacity = 1;
